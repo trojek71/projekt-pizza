@@ -54,14 +54,48 @@
 /* New class Product */
 
   class Product{
-    constructor(){
+    constructor(id, data){
       const thisProduct = this;
+      thisProduct.renderInMenu();
+      thisProduct.id= id;
+      thisProduct.data= data;
+      console.log('new Product', thisProduct);
+    }
+    renderInMenu(){
+      const thisProduct = this;
+/* generate HTNL based on templates */
+const generateHTML = templates.menuProduct(thisProduct.data);
+console.log('generateHTML',generateHTML);
 
-      console.log('new Produkct', thisProduct)
+/* create element usig utils.createElementFromHTML */
+thisProduct.element = utils.createDOMFromHTML(generateHTML);
+console.log('thisProduct', thisProduct.element)
+
+/* find menu container */
+const menuContainer = document.querySelector(select.containerOf.menu);
+
+/* add element to menu */
+menuContainer.appendChild(thisProduct.element);
     }
   }
 
   const app = {
+
+    initMenu: function(){
+      const thisApp = this;
+      console.log('thisApp.data:',this.data);
+      for (let productData in thisApp.data.products){
+        new Product(productData,thisApp.data.products[productData]);
+      }
+    },
+
+    initData: function(){
+
+      const thisApp = this;
+
+      thisApp.data = dataSource;
+    },
+
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -69,8 +103,11 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+      thisApp.initData();
+      thisApp.initMenu();
     },
   };
+
 
   app.init();
 }
