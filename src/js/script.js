@@ -51,32 +51,71 @@
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
-/* New class Product */
+  /* New class Product */
 
   class Product{
     constructor(id, data){
       const thisProduct = this;
-      thisProduct.renderInMenu();
       thisProduct.id= id;
       thisProduct.data= data;
+      thisProduct.renderInMenu();
+      thisProduct.initAccordion();
+
       console.log('new Product', thisProduct);
     }
+
     renderInMenu(){
       const thisProduct = this;
-/* generate HTNL based on templates */
-const generateHTML = templates.menuProduct(thisProduct.data);
-console.log('generateHTML',generateHTML);
+      /* generate HTML based on templates */
+      const generateHTML = templates.menuProduct(thisProduct.data);
 
-/* create element usig utils.createElementFromHTML */
-thisProduct.element = utils.createDOMFromHTML(generateHTML);
-console.log('thisProduct', thisProduct.element)
+      console.log('generateHTML',generateHTML);
+      console.log('thisProduct.Data',thisProduct.data);
 
-/* find menu container */
-const menuContainer = document.querySelector(select.containerOf.menu);
+      /* create element usig utils.createElementFromHTML */
+      thisProduct.element = utils.createDOMFromHTML(generateHTML);
+      console.log('thisProduct', thisProduct.element);
 
-/* add element to menu */
-menuContainer.appendChild(thisProduct.element);
+      /* find menu container */
+      const menuContainer = document.querySelector(select.containerOf.menu);
+
+      /* add element to menu */
+      menuContainer.appendChild(thisProduct.element);
     }
+    initAccordion(){
+    const thisProduct = this;
+    /* find the clickable trigger (the element that should react to clicking) */
+    const triggers = document.querySelectorAll(select.menuProduct.clickable);
+    console.log(' triggers',triggers);
+    /* START: click event listener to trigger */
+
+    //for (let trigger of triggers){
+    //triggers.addEventListener('click', function(){
+    //console.log('clicable triger');
+    //});
+
+
+    /* prevent default action for event */
+    //event.preventDefault();
+
+    /* toggle active class on element of thisProduct */
+
+    /* find all active products */
+
+    /* START LOOP: for each active product */
+
+    /* START: if the active product isn't the element of thisProduct */
+
+    /* remove class active for the active product */
+
+    /* END: if the active product isn't the element of thisProduct */
+
+    /* END LOOP: for each active product */
+
+    /* END: click event listener to trigger */
+
+    }
+
   }
 
   const app = {
@@ -96,6 +135,8 @@ menuContainer.appendChild(thisProduct.element);
       thisApp.data = dataSource;
     },
 
+
+
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -105,6 +146,7 @@ menuContainer.appendChild(thisProduct.element);
       console.log('templates:', templates);
       thisApp.initData();
       thisApp.initMenu();
+
     },
   };
 
