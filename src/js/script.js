@@ -85,20 +85,30 @@
     initAccordion(){
     const thisProduct = this;
     /* find the clickable trigger (the element that should react to clicking) */
-    const triggers = document.querySelectorAll(select.menuProduct.clickable);
+    const triggers = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
     console.log(' triggers',triggers);
     /* START: click event listener to trigger */
 
-    //for (let trigger of triggers){
-    //triggers.addEventListener('click', function(){
-    //console.log('clicable triger');
-    //});
+    for (let trigger of triggers){
+    trigger.addEventListener('click', function(event){
+      /* prevent default action for event */
+      event.preventDefault();
+      /* toggle active class on element of thisProduct */
+      console.log(' triggers',trigger);
+
+    });
+  }
+
+  //const activeProducts = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
+  //console.log(' all tagLinks from href  ' , activeProducts);
+  /* START LOOP: for each active tag link */
+  //for(let activeProduct of activeProducts){
+  //console.log('active Product',activeProduct );
+  //  activeProduct.classList.remove('active');
+  /* END LOOP: for each active tag link */
+  //}
 
 
-    /* prevent default action for event */
-    //event.preventDefault();
-
-    /* toggle active class on element of thisProduct */
 
     /* find all active products */
 
