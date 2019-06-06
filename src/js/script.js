@@ -74,7 +74,7 @@
 
       /* create element usig utils.createElementFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generateHTML);
-      console.log('thisProduct', thisProduct.element);
+      console.log('thisProduct.element', thisProduct.element);
 
       /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
@@ -93,24 +93,33 @@
     trigger.addEventListener('click', function(event){
       /* prevent default action for event */
       event.preventDefault();
-      /* toggle active class on element of thisProduct */
+
       console.log(' triggers',trigger);
+      /* toggle active class on element of thisProduct */
+      thisProduct.element.classList.add('active');
+
+      const activeProducts = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
+      console.log('aktywne Produkty',activeProducts);
+
+      for(let activeProduct of activeProducts){
+       if (activeProduct != thisProduct.products){
+          console.log('elementy produktu',activeProduct);
+         thisProduct.element.classList.remove('active');
+         console.log('elementy do usuniecia ',thisProduct.element);
+        }
+        else {thisProduct.element.classList.add('active');
+     }
+
+      }
 
     });
   }
 
-  //const activeProducts = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
-  //console.log(' all tagLinks from href  ' , activeProducts);
-  /* START LOOP: for each active tag link */
-  //for(let activeProduct of activeProducts){
-  //console.log('active Product',activeProduct );
-  //  activeProduct.classList.remove('active');
-  /* END LOOP: for each active tag link */
-  //}
 
 
 
-    /* find all active products */
+
+
 
     /* START LOOP: for each active product */
 
