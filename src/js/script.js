@@ -82,56 +82,58 @@
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
+
     initAccordion(){
-    const thisProduct = this;
-    /* find the clickable trigger (the element that should react to clicking) */
-    const triggers = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
-    console.log(' triggers',triggers);
-    /* START: click event listener to trigger */
+      const thisProduct = this;
+      /* find the clickable trigger (the element that should react to clicking) */
+      const triggers = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
+      console.log(' triggers',triggers);
+      /* START: click event listener to trigger */
 
-    for (let trigger of triggers){
-    trigger.addEventListener('click', function(event){
-      /* prevent default action for event */
-      event.preventDefault();
+      for (let trigger of triggers){
+        trigger.addEventListener('click', function(event){
+        /* prevent default action for event */
+          event.preventDefault();
 
-      console.log(' triggers',trigger);
-      /* toggle active class on element of thisProduct */
-      thisProduct.element.classList.add('active');
+          console.log(' triggers',trigger);
+          /* toggle active class on element of thisProduct */
+          thisProduct.element.classList.add(classNames.menuProduct.wrapperActive);
+          console.log('THIS PRODUCT',thisProduct);
+          console.log('THIS PRODUCT ELEMENT',thisProduct.element);
+          const activeProducts = document.querySelectorAll('.product.active');
+          console.log('aktywne Produkty',activeProducts);
 
-      const activeProducts = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
-      console.log('aktywne Produkty',activeProducts);
+          for(let activeProduct of activeProducts){
 
-      for(let activeProduct of activeProducts){
-       if (activeProduct != thisProduct.products){
-          console.log('elementy produktu',activeProduct);
-         thisProduct.element.classList.remove('active');
-         console.log('elementy do usuniecia ',thisProduct.element);
-        }
-        else {thisProduct.element.classList.add('active');
-     }
+            if (activeProduct != thisProduct.element){
+              console.log('AKTYWNY PRODUCT',activeProduct);
+              activeProduct.classList.remove('active');
+              console.log('elementy do usuniecia ',activeProduct);
+            }
+            //else {thisProduct.element.classList.add('active');
+            //}
+            //thisProduct.element.classList.add(classNames.menuProduct.wrapperActive);
+          }
 
+        });
       }
 
-    });
-  }
 
 
 
 
 
+      /* START LOOP: for each active product */
 
+      /* START: if the active product isn't the element of thisProduct */
 
-    /* START LOOP: for each active product */
+      /* remove class active for the active product */
 
-    /* START: if the active product isn't the element of thisProduct */
+      /* END: if the active product isn't the element of thisProduct */
 
-    /* remove class active for the active product */
+      /* END LOOP: for each active product */
 
-    /* END: if the active product isn't the element of thisProduct */
-
-    /* END LOOP: for each active product */
-
-    /* END: click event listener to trigger */
+      /* END: click event listener to trigger */
 
     }
 
