@@ -102,7 +102,7 @@
 
     initOrderForm(){
       const thisProduct = this;
-
+      //test
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.cartButton.addEventListener('click', function(event){
         console.log('button',thisProduct.cartButton);
