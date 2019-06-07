@@ -61,6 +61,9 @@
       thisProduct.renderInMenu();
       thisProduct.initAccordion();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
+
     }
 
     renderInMenu(){
@@ -84,20 +87,54 @@
 
     initAccordion(){
       const thisProduct = this;
-      const triggers = thisProduct.element.querySelectorAll(select.menuProduct.clickable);
-      for (let trigger of triggers){
-        trigger.addEventListener('click', function(event){
-          event.preventDefault();
-          thisProduct.element.classList.add(classNames.menuProduct.wrapperActive);
-          const activeProducts = document.querySelectorAll('.product.active');
-          for(let activeProduct of activeProducts){
-            if (activeProduct != thisProduct.element){
-              activeProduct.classList.remove('active');
-            }
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.accordionTrigger.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.element.classList.add(classNames.menuProduct.wrapperActive);
+        const activeProducts = document.querySelectorAll('.product.active');
+        for(let activeProduct of activeProducts){
+          if (activeProduct != thisProduct.element){
+            activeProduct.classList.remove('active');
           }
+        }
+      });
+    }
+
+    initOrderForm(){
+      const thisProduct = this;
+
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.cartButton.addEventListener('click', function(event){
+        console.log('button',thisProduct.cartButton);
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.form.addEventListener('submit', function(event){
+        console.log('button',thisProduct.formInputs);
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      for(let input of thisProduct.formInputs){
+
+        input.addEventListener('change', function(){
+          console.log('button',input);
+          thisProduct.processOrder();
         });
       }
+
+
     }
+
+    processOrder(){
+      const thisProduct = this;
+
+
+
+    }
+
+
   }
 
   const app = {
