@@ -116,26 +116,17 @@
       });
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       for(let input of thisProduct.formInputs){
-
         input.addEventListener('change', function(){
           console.log('button',input);
           thisProduct.processOrder();
         });
       }
-
-
     }
 
     processOrder(){
       const thisProduct = this;
-
-
       const formData = utils.serializeFormToObject(thisProduct.form);
-
       let price = thisProduct.data.price;
-      console.log('Cena wyjściowa:',price);
-
-
       for ( let paramId in thisProduct.data.params){
         const param = thisProduct.data.params[paramId];
         for (let optionId in param.options){
@@ -143,22 +134,15 @@
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
           if(optionSelected && !option.default){
             price += param.options[optionId].price;
-            console.log('nowa powiększona cena:',price);
           }
-
           else if (!optionSelected && option.default){
             price -= param.options[optionId].price;
-            console.log('nowa pomniejszona cena:',price);
           }
-
-
         }
-
       }
-       thisProduct.priceElem = price;
-      console.log('PRICE ELEMENT:',thisProduct.priceElem);
+      thisProduct.priceElem = price;
+      console.log('set the contents of thisProduct.priceElem',thisProduct.priceElem);
     }
-
   }
 
   const app = {
