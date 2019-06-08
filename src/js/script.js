@@ -102,7 +102,6 @@
 
     initOrderForm(){
       const thisProduct = this;
-      //test
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.cartButton.addEventListener('click', function(event){
         console.log('button',thisProduct.cartButton);
@@ -131,9 +130,34 @@
       const thisProduct = this;
 
 
+      const formData = utils.serializeFormToObject(thisProduct.form);
 
+      let price = thisProduct.data.price;
+      console.log('Cena wyjściowa:',price);
+
+
+      for ( let paramId in thisProduct.data.params){
+        const param = thisProduct.data.params[paramId];
+        for (let optionId in param.options){
+          const option = param.options[optionId];
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+          if(optionSelected && !option.default){
+            price += param.options[optionId].price;
+            console.log('nowa powiększona cena:',price);
+          }
+
+          else if (!optionSelected && option.default){
+            price -= param.options[optionId].price;
+            console.log('nowa pomniejszona cena:',price);
+          }
+
+
+        }
+
+      }
+       thisProduct.priceElem = price;
+      console.log('PRICE ELEMENT:',thisProduct.priceElem);
     }
-
 
   }
 
