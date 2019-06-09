@@ -82,6 +82,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      // console.log('imageWrapper',thisProduct.imageWrapper);
     }
 
 
@@ -125,21 +127,36 @@
 
     processOrder(){
       const thisProduct = this;
-      const formData = utils.serializeFormToObject(thisProduct.form);
+      const formData = utils.serializeFormToObject(thisProduct.form.options);
+
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      const avaibleOptions = thisProduct.imageWrapper.querySelector('.active');
+      console.log('Dostepne Opcje',avaibleOptions);
+
       let price = thisProduct.data.price;
       for ( let paramId in thisProduct.data.params){
         const param = thisProduct.data.params[paramId];
+
         for (let optionId in param.options){
           const option = param.options[optionId];
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+
           if(optionSelected && !option.default){
             price += param.options[optionId].price;
+
           }
           else if (!optionSelected && option.default){
             price -= param.options[optionId].price;
           }
+
+
+
+
         }
+
+
       }
+
       thisProduct.priceElem = price;
       console.log('set the contents of thisProduct.priceElem',thisProduct.priceElem);
     }
