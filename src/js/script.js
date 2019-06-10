@@ -83,9 +83,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      // console.log('imageWrapper',thisProduct.imageWrapper);
     }
-
 
     initAccordion(){
       const thisProduct = this;
@@ -127,39 +125,65 @@
 
     processOrder(){
       const thisProduct = this;
-      const formData = utils.serializeFormToObject(thisProduct.form.options);
-
+      const formData = utils.serializeFormToObject(thisProduct.form);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      const avaibleOptions = thisProduct.imageWrapper.querySelector('.active');
-      console.log('Dostepne Opcje',avaibleOptions);
-
       let price = thisProduct.data.price;
+      console.log('Cena wyjściowa:',price);
       for ( let paramId in thisProduct.data.params){
         const param = thisProduct.data.params[paramId];
-
         for (let optionId in param.options){
           const option = param.options[optionId];
+          const Images = thisProduct.imageWrapper.querySelectorAll('.'+paramId+'-'+optionId);
+          console.log('aktywne obrazki',Images);
           const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
-
           if(optionSelected && !option.default){
             price += param.options[optionId].price;
-
+            console.log('nowa powiększona cena:',price);
           }
           else if (!optionSelected && option.default){
             price -= param.options[optionId].price;
+            console.log('nowa pomniejszona cena:',price);
           }
-
-
-
-
+          if (( optionSelected && option.default) || ( optionSelected && !option.default)) {
+            for (let Image of Images ){
+              Image.classList.add('active');
+              console.log('dodanie klasy active');
+            }
+          }
+          else
+          {
+            for (let Image of Images){
+              Image.classList.remove('active');
+              console.log('odebranie klasy active'); }
+          }
         }
-
-
       }
-
+      thisProduct.priceElem = price;
+      console.log('PRICE ELEMENT:',thisProduct.priceElem);
       thisProduct.priceElem = price;
       console.log('set the contents of thisProduct.priceElem',thisProduct.priceElem);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   const app = {
