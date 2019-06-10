@@ -164,27 +164,24 @@
       console.log('set the contents of thisProduct.priceElem',thisProduct.priceElem);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
+
+class amountWidget{
+    constructor(element){
+      const thisWidget = this;
+
+      console.log('AmountWitget:', thisWidget);
+      console.log('constructor argument:',element);
+    }
+
+
+
+
+ }
+
+
+
+
 
   const app = {
 
