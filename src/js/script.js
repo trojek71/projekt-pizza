@@ -215,9 +215,9 @@
       const thisWidget = this;
 
       const newValue = parseInt(value);
-      //console.log(' WARTOŚĆ',parseInt(value));
+      console.log(' WARTOŚĆ', newValue);
       /* TODO: Add validation*/
-      if ( value >= settings.amountWidget.defaultMin && value <= settings.amountWidget.defaultMax ){
+      if ( (value >= settings.amountWidget.defaultMin) && (value <= settings.amountWidget.defaultMax) && (thisWidget.value != newValue)  ){
         thisWidget.value= newValue;
         thisWidget.announce();
         console.log('WYKONANIE PĘTLI');
