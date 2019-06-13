@@ -94,7 +94,7 @@
       thisProduct.data= data;
       thisProduct.renderInMenu();
       thisProduct.initAccordion();
-      thisProduct.initAccordion();
+      //thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.initamountWidget();
       thisProduct.processOrder();
@@ -266,12 +266,11 @@
 
   class Cart{
     constructor(element){
-      const thisCart= this;
+      const thisCart = this;
 
-      thisCart.product =[];
-
+      thisCart.product = [];
       thisCart.getElements(element);
-
+      thisCart.initActions();
       console.log('new Cart',thisCart);
     }
 
@@ -281,6 +280,16 @@
       thisCart.dom ={};
 
       thisCart.dom.wrapper = element;
+
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+
+    }
+    initActions(){
+      const thisCart = this;
+      thisCart.dom.toggleTrigger.addEventListener('click',function(){
+        thisCart.dom.wrapper.classList.toggle('active');
+      });
+
     }
 
   }
@@ -303,6 +312,7 @@
       const thisApp = this;
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
 
     },
     initCart: function(){
@@ -318,4 +328,5 @@
   };
 
   app.init();
+
 }
