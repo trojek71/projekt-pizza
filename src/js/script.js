@@ -382,31 +382,22 @@
       const thisCartProduct = this;
       console.log('thisCartProduct.dom:',thisCartProduct.dom.wrapper);
       thisCartProduct.amountWidgetElem = thisCartProduct.dom.wrapper.querySelector(select.menuProduct.amountWidget);
-      //console.log('NOWA CENA W KOSZYKU AMOUNT',thisCartProduct.amountWidgetElem);
+
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.amountWidgetElem);
-      //console.log('NOWA CENA W KOSZYKU AMOUNT',thisCartProduct.amountWidgetElem);
+
       thisCartProduct.amountWidgetElem.addEventListener('updated', function(){
-        //thisCartProduct.processOrder();
-        thisCartProduct.amount = thisCartProduct.amountWidget.price ;
-        // thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle ;
-        console.log('NOWA CENA W KOSZYKU AMOUNT',thisCartProduct.amountWidgetElem);
-        //console.log('NOWA CENA W KOSZYKU SINGLEPRICE',thisCartProduct.amount);
+
+        thisCartProduct.amount = thisCartProduct.amountWidget.value ;
+
+
+        thisCartProduct.price = (thisCartProduct.amount * thisCartProduct.priceSingle);
+
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+
 
       });
 
     }
-
-
-    /* initamountWidget(){
-      const thisProduct = this;
-      console.log('SSSSSSSSSS',thisProduct.element);
-      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
-      console.log('QQQQQQQQQ',thisProduct.amountWidgetElem);
-      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      thisProduct.amountWidgetElem.addEventListener('updated', function(){
-        thisProduct.processOrder();
-      }); */
-
 
 
   }
