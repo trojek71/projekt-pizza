@@ -334,6 +334,9 @@
       }
 
       thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      thisCart.phone =  document.querySelector('[name="phone"]');
+      thisCart.address =  document.querySelector('[name="address"]');
+
 
     }
     initActions(){
@@ -346,11 +349,12 @@
 
         thisCart.remove(e.detail.cartProduct);
       });
-      console.log('thisCart.dom.form:',thisCart.dom.form);
+
       thisCart.dom.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisCart.sendOrder();
-        console.log('wyywolanie sendOrder');
+
+
       });
 
     }
@@ -408,16 +412,34 @@
         }
       }
     }
-    sendOrder(){
+    sendOrder(data){
 
       const thisCart = this;
+
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-        address: 'test',
+        address: thisCart.address.value,
         totalPrice: thisCart.totalPrice,
+        phone: thisCart.phone.value,
+        subtotalPrice: thisCart.subtotalPrice ,
+        totalNumber: thisCart.totalNumber,
+        products: [],
+
       };
-      console.log('ładunek',payload);
+
+      for (let product of thisCart.products ){
+
+        product.getData();
+
+        console.log('AAAAAAAA',product);
+
+        payload.products.push (product);
+      }
+
+
+      ///payload.products.push ();
+
       const options = {
         method: 'POST',
         headers: {
@@ -435,6 +457,10 @@
 
 
     }
+
+
+
+
 
   }
 
@@ -510,10 +536,18 @@
         event.preventDefault();
         thisCartProduct.remove();
       });
+    }
+    getData(){
+      console.log('wywolanie getData');
+      const thisCartProduct = this;
 
+      console.log('PRODUKTY',thisCartProduct.params);
+      const product = thisCartProduct.params;
+      return product;
 
 
     }
+
   }
 
   const app = {
@@ -531,7 +565,7 @@
       thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.product;
 
-      fetch(url,)
+      fetch(url)
         .then(function(rawReponse){
           return rawReponse.json();
         })
