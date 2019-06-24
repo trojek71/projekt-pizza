@@ -18,24 +18,22 @@ export class Booking{
     const thisBooking = this;
     console.log('booking container',thisBooking.bookingContainer);
     const generatedHTML = templates.bookingWidget();
-    //console.log('generatedHTML',generatedHTML);
+    console.log('generatedHTML',generatedHTML);
     thisBooking.dom ={};
-    thisBooking.dom.wrapper = utils.createDOMFromHTML( generatedHTML);
-    console.log('booking wrapper',thisBooking.dom.bookingContainer);
+    thisBooking.dom.wrapper = thisBooking.bookingContainer;
 
+    console.log('booking wrapper!!!!!!!!!!',thisBooking.dom.wrapper);
+    thisBooking.dom.wrapper.innerHTML= generatedHTML;
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    console.log('people amount',thisBooking.dom.peopleAmount);
-    thisBooking.bookingContainer.appendChild(thisBooking.dom.peopleAmount);
+
 
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-    thisBooking.bookingContainer.appendChild(thisBooking.dom.hoursAmount);
+
   }
 
   initWidges(){
     const thisBooking = this;
-
-
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
