@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 import {select,templates} from '../settings.js';
 import {utils} from '../utils.js';
-import { AmountWidget } from './AmountWidget.js';
+import {AmountWidget} from './AmountWidget.js';
+
 
 
 export class Booking{
-  constructor(widgetContener){
+  constructor(bookingContainer){
     const thisBooking = this;
 
-    thisBooking.render(widgetContener);
+    thisBooking.bookingContainer=bookingContainer;
+    thisBooking.render(bookingContainer);
     thisBooking.initWidges();
 
   }
@@ -19,29 +21,23 @@ export class Booking{
     thisBooking.dom ={};
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
 
-    const widgetContener = document.querySelector(select.containerOf.booking);
-    console.log('widgetContainer',widgetContener);
-    widgetContener.appendChild(thisBooking.dom.wrapper);
 
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-
+    console.log('people dom',thisBooking.dom.peopleAmount);
+    thisBooking.bookingContainer.appendChild(thisBooking.dom.peopleAmount);
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-
-    //thisBooking.dom.hoursAmount.innerHTML = thisBooking.peopleAmount;
-
-    //thisBooking.dom.peopleAmount.innerHTML = thisBooking.peopleAmount;
-
-
+    thisBooking.bookingContainer.appendChild(thisBooking.dom.hoursAmount);
   }
 
   initWidges(){
     const thisBooking = this;
+
+
+
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
-    console.log('aaaa',thisBooking.peopleAmount);
+    thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
 
-
-    thisBooking.hoursAmount = new AmountWidget(thisBooking.widgetContener.hoursAmount);
 
   }
 

@@ -59,7 +59,7 @@ export class CartProduct{
       },
     });
     thisCartProduct.dom.wrapper.dispatchEvent(event);
-    console.log('wywołanie metody usuwanie');
+
   }
 
   initActions(){
@@ -74,12 +74,12 @@ export class CartProduct{
     });
   }
   getData(){
-    console.log('wywolanie getData');
+
     const thisCartProduct = this;
 
 
     const product = thisCartProduct;
-    console.log('PRODUKTY',product);
+
     return product;
 
 

@@ -4,6 +4,7 @@ import {Cart} from './components/Cart.js';
 import {select,settings, classNames} from './settings.js';
 import {Booking} from './components/Booking.js';
 
+
 const app = {
 
   initMenu: function(){
@@ -58,7 +59,7 @@ const app = {
     const thisApp = this;
     thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
     thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links));
-
+    console.log('active pages', thisApp.pages);
     //thisApp.activatePage(thisApp.pages[0].id);
     let pagesMatchingHash =[];
     if (window.location.hash.leght >2){
@@ -67,6 +68,7 @@ const app = {
         return page.id == idFromHash;
       });
     }
+    thisApp.activatePage(pagesMatchingHash.leght ? pagesMatchingHash[0].id : thisApp.pages[0].id);
     for(let link of thisApp.navLinks){
 
       link.addEventListener('click', function(event){
@@ -86,6 +88,7 @@ const app = {
 
   activatePage(pageId){
     const thisApp= this;
+    window.location.hash = '#/' + pageId;
     for(let link of thisApp.navLinks){
       link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId);
 
@@ -93,15 +96,17 @@ const app = {
     for (let page of thisApp.pages){
 
       page.classList.toggle(classNames.pages.active, thisApp.pages[0].id == pageId);
+      console.log('active pages', thisApp.pages);
     }
-    window.location.hash = '#/' + pageId;
+
   },
 
   initBooking(){
-    const thisApp = this;
-    const widgetContener = document.querySelector(select.containerOf.booking);
-    new Booking(widgetContener);
 
+    const bookingContainer = document.querySelector(select.containerOf.booking);
+
+    new Booking(bookingContainer);
+    console.log('bookingConener',bookingContainer);
   }
 
 };
