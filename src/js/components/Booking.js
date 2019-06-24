@@ -18,23 +18,30 @@ export class Booking{
 
     thisBooking.dom ={};
     thisBooking.dom.wrapper = utils.createDOMFromHTML(generatedHTML);
-    console.log('wrapper',thisBooking.dom.wrapper);
+
+    const widgetContener = document.querySelector(select.containerOf.booking);
+    console.log('widgetContainer',widgetContener);
+    widgetContener.appendChild(thisBooking.dom.wrapper);
+
+
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
 
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
 
-    thisBooking.hoursAmount = thisBooking.dom.hoursAmount.innerHTML;
+    //thisBooking.dom.hoursAmount.innerHTML = thisBooking.peopleAmount;
 
-    thisBooking.peopleAmount = thisBooking.dom.peopleAmount.innerHTML;
+    //thisBooking.dom.peopleAmount.innerHTML = thisBooking.peopleAmount;
+
 
   }
 
   initWidges(){
     const thisBooking = this;
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
+    console.log('aaaa',thisBooking.peopleAmount);
 
 
-    thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.hoursAmount = new AmountWidget(thisBooking.widgetContener.hoursAmount);
 
   }
 
