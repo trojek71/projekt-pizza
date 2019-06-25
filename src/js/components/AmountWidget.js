@@ -58,4 +58,8 @@ export class AmountWidget extends BaseWidget{
   //  const event = new CustomEvent('updated',{bubbles: true});
   //  thisWidget.element.dispatchEvent(event);
   //}
+  renderValue(){
+    const thisWidget= this;
+    thisWidget.dom.input.value = thisWidget.value;
+  }
 }
