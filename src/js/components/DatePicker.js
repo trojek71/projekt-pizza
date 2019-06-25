@@ -14,12 +14,17 @@ export class DatePicker extends BaseWidget{
   initPlugin(){
     const thisWidget = this;
     thisWidget.minDate = new Date(thisWidget.value);
-    thisWidget.maxDate = thisWidget.minDate + settings.datePicker.maxDaysInFuture;
+    console.log('minDate',thisWidget.minDate);
+
+
+    thisWidget.maxDate = utils.addDays(thisWidget.minDate, settings.datePicker.maxDaysInFuture);
+
     flatpickr(thisWidget.dom.input, {
       dateFormat: 'd-m-Y',
       defaultDate:thisWidget.minDate,
       minDate: thisWidget.minDate,
-      maxDate: new Date().fp_incr(14),
+
+      maxDate: thisWidget.maxDate,
       firstDayOfWeek: 1,
       "disable": [
         function(date) {
@@ -28,8 +33,12 @@ export class DatePicker extends BaseWidget{
 
         }
       ],
-
+      onChange: function(selectedDates, dateStr, instance) {
+        thisWidget.value= dateStr;
+      },
     });
+
+
   }
 
   parseValue(newValue){
