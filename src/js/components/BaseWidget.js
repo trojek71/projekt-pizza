@@ -1,7 +1,8 @@
 export class BaseWidget{
   constructor(wrapperElement,initialValue){
     const thisWidget = this;
-    thisWidget.dom = wrapperElement;
+    thisWidget.dom={};
+    thisWidget.dom.wrapper = wrapperElement;
     thisWidget.correctValue= initialValue;
 
   }
@@ -19,7 +20,7 @@ export class BaseWidget{
       thisWidget.correctValue= newValue;
       thisWidget.announce();
     }
-    thisWidget.correctValue();
+    thisWidget.renderValue();
   }
 
   parseValue(newValue){
