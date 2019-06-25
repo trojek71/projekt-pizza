@@ -1,13 +1,12 @@
 import {BaseWidget} from './BaseWidget.js';
 import {utils} from '../utils.js';
-//import {AmountWidget} from './AmountWidget.js';
 import {select,settings} from '../settings.js';
 
 export class DatePicker extends BaseWidget{
   constructor(wrapper){
     super (wrapper, utils.dateToStr(new Date()));
     const thisWidget = this;
-    // thisWidget.dom.input= {};
+
     thisWidget.dom.input= thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
     thisWidget.initPlugin();
 
@@ -16,7 +15,6 @@ export class DatePicker extends BaseWidget{
     const thisWidget = this;
     thisWidget.minDate = new Date(thisWidget.value);
     thisWidget.maxDate = thisWidget.minDate + settings.datePicker.maxDaysInFuture;
-    //const date= new Date();
     flatpickr(thisWidget.dom.input, {
       dateFormat: 'd-m-Y',
       defaultDate:thisWidget.minDate,
@@ -48,9 +46,7 @@ export class DatePicker extends BaseWidget{
     //console.log('widget value:', thisWidget.value);
   }
 
-  datePicker(){
 
-  }
 
 }
 
