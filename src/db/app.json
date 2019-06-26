@@ -216,7 +216,7 @@
     },
     {
       "id": 2,
-      "date": "2019-01-01",
+      "date": "2019-06-27",
       "hour": "16:00",
       "table": 3,
       "repeat": "daily",
@@ -226,7 +226,7 @@
     },
     {
       "id": 3,
-      "date": "2019-01-01",
+      "date": "2019-06-27",
       "hour": "12:00",
       "table": 3,
       "repeat": "daily",
@@ -236,14 +236,26 @@
     },
     {
       "id": 4,
-      "date": "2019-01-01",
+      "date": "2019-06.28",
       "hour": "13:00",
       "table": 2,
       "repeat": "daily",
-      "duration": 4,
+      "duration": 2,
       "ppl": 3,
       "starters": []
     },
+    {
+      "id": 5,
+      "date": "2019-06-28",
+      "hour": "18:00",
+      "table": 2,
+      "repeat": "daily",
+      "duration": 2,
+      "ppl": 3,
+      "starters": ["lemonWater"]
+    }
+  ],
+  "booking": [
     {
       "id": 5,
       "date": "2019-01-01",
@@ -254,6 +266,5 @@
       "ppl": 3,
       "starters": ["lemonWater"]
     }
-  ],
-  "booking": []
+  ]
 }

@@ -94,19 +94,61 @@ export class Booking{
 
   }
 
-  parseData(bookings,eventsCurrent,eventsRepeat){
+  parseData(bookings=[],eventsCurrent=[],eventsRepeat=[]){
     const thisBooking=this;
     thisBooking.booked ={};
 
     console.log('eventCurrent',eventsCurrent);
-    //console.log('repat',);
-    for (let element  of eventsCurrent) {
-      console.log('element:',element);
-      //thisBooking.makeBooked(eventsCurrent.data);
 
+    for (let element of eventsCurrent) {
+      console.log('element:',element);
+      thisBooking.makeBooked(element.date, element.hour,element.duration,element.table);
+      console.log('daty',element.date);
+    }
+
+    for (let element of bookings) {
+      console.log('element:',element);
+      thisBooking.makeBooked(element.date, element.hour,element.duration,element.table);
 
     }
 
+    for (let element of eventsRepeat) {
+      console.log('element:',element);
+      thisBooking.makeBooked(element.date, element.hour,element.duration,element.table);
+
+    }
+  }
+  makeBooked(date, hour, duration, table) {
+    const thisBooking=this;
+
+    // czy jest taki dzien?
+    if(!thisBooking.booked[date]) {
+      thisBooking.booked[date] = {};
+    }
+
+    let time = hour.split(":");
+    if(time[1] === "30") hour = `${time[0]}.5`;
+    else hour = time[0]
+
+    // czy w obiekcie już jest godzina rozpoczęcia
+    if(!thisBooking.booked[date][hour]) {
+      thisBooking.booked[date][hour] = [];
+    }
+
+    thisBooking.booked[date][hour].push(table);
+
+    hour = hour - (-duration);
+
+    // czy w obiekcie już jest godzina zakończenia
+    if(!thisBooking.booked[date][hour]) {
+      thisBooking.booked[date][hour] = [];
+    }
+
+    thisBooking.booked[date][hour].push(table);
+
+    console.log('BOOKED',thisBooking.booked);
 
   }
+
+
 }
