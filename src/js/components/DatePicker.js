@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,no-undef */
 import {BaseWidget} from './BaseWidget.js';
 import {utils} from '../utils.js';
 import {select,settings} from '../settings.js';
@@ -23,7 +24,7 @@ export class DatePicker extends BaseWidget{
       minDate: thisWidget.minDate,
       maxDate: thisWidget.maxDate,
       firstDayOfWeek: 1,
-      "disable": [
+      'disable': [
         function(date) {
 
           return (date.getDay() === 1 );
