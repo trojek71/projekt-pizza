@@ -45,7 +45,7 @@ export class Booking{
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker= new HourPicker(thisBooking.dom.hourPicker);
 
-    console.log('WRAPPER',thisBooking.dom.wrapper);
+
     thisBooking.dom.wrapper.addEventListener('updated',function(){
 
       thisBooking.updateDOM();
@@ -160,26 +160,23 @@ export class Booking{
     const thisBooking=this;
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = thisBooking.hourPicker.value;
-    console.log('stoliki',thisBooking.dom.tables);
-    console.log('wrapper',thisBooking.dom.wrapper);
-    nrTable= thisBooking.dom.tables.getAttribute(settings.booking.tableIdAttribute);
-    console.log('nrTable',nrTable);
-     let nrTable=[];
-    for (let table of thisBooking.dom.tables){
 
+    let nrTable=[];
+    for (let table of thisBooking.dom.tables){
+      console.log('stolik POJEDYNCZY',table);
       nrTable= table.getAttribute(settings.booking.tableIdAttribute);
 
       console.log('numer stolika',nrTable);
-    }
+
 
     if (thisBooking.booked[thisBooking.date]||thisBooking.booked[thisBooking.date][thisBooking.hour]|| (nrTable = thisBooking.booked[thisBooking.date][thisBooking.hour])){
-      thisBooking.nrTable.classList.add(classNames.booking.tableBooked);
+      table.classList.add(classNames.booking.tableBooked);
     }
     else{
-      nrTable.classList.remove(classNames.booking.tableBooked);
+      table.classList.remove(classNames.booking.tableBooked);
     }
   }
-
+  }
 
 
 }
