@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {select,templates,settings} from '../settings.js';
+import {select,templates,settings,classNames} from '../settings.js';
 import {utils} from '../utils.js';
 import {AmountWidget} from './AmountWidget.js';
 import {DatePicker} from './DatePicker.js';
@@ -28,13 +28,13 @@ export class Booking{
     thisBooking.dom.wrapper.innerHTML= generatedHTML;
 
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-
-
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
-
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
-    console.log('thisBooking.dom.datePicker;',thisBooking.dom.datePicker);
-    thisBooking.dom.hourPicker= thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    //console.log('numery stolików', thisBooking.dom.tables);
+
+
   }
 
   initWidges(){
@@ -45,6 +45,12 @@ export class Booking{
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker= new HourPicker(thisBooking.dom.hourPicker);
 
+    console.log('WRAPPER',thisBooking.dom.wrapper);
+    thisBooking.dom.wrapper.addEventListener('updated',function(){
+
+      thisBooking.updateDOM();
+
+    });
 
   }
   getData(){
@@ -117,6 +123,7 @@ export class Booking{
       thisBooking.makeBooked(element.date, element.hour,element.duration,element.table);
 
     }
+    thisBooking.updateDOM();
   }
   makeBooked(date, hour, duration, table) {
     const thisBooking=this;
@@ -149,6 +156,28 @@ export class Booking{
     console.log('BOOKED',thisBooking.booked);
 
   }
+  updateDOM(){
+    const thisBooking=this;
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+    console.log('numery stolików', thisBooking.dom.tables);
+    console.log('stoliki',thisBooking.dom.tables);
+    let nrTable=[];
+    for (let table of thisBooking.dom.tables){
+
+      nrTable= table.getAttribute(settings.booking.tableIdAttribute);
+
+      console.log('numer stolika',nrTable);
+    }
+
+    if (thisBooking.booked[thisBooking.date]||thisBooking.booked[thisBooking.date][thisBooking.hour]|| (nrTable = thisBooking.booked[thisBooking.date][thisBooking.hour])){
+      thisBooking.nrTable.classList.add.active(classNames.booking.tableBooked);
+    }
+    else{
+      thisBooking.table.classList.remove.active(classNames.booking.tableBooked);
+    }
+  }
+
 
 
 }

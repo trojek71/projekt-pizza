@@ -30,9 +30,10 @@ export class HourPicker extends BaseWidget{
     });
   }
 
-  parseValue(Value){
+  parseValue(value){
     const thisWidget = this;
-    return utils.numberToHour(Value);
+
+    return utils.numberToHour(value);
 
   }
   isValid(newValue){
@@ -43,7 +44,6 @@ export class HourPicker extends BaseWidget{
   renderValue(){
     const thisWidget= this;
     thisWidget.dom.output.innerHTML=thisWidget.value;
-
   }
 
 }
