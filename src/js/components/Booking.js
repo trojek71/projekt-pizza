@@ -32,7 +32,7 @@ export class Booking{
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-    //console.log('numery stolików', thisBooking.dom.tables);
+    console.log('NNNNNNNNNNN,', thisBooking.dom.tables);
 
 
   }
@@ -135,7 +135,7 @@ export class Booking{
 
     let time = hour.split(":");
     if(time[1] === "30") hour = `${time[0]}.5`;
-    else hour = time[0]
+    else hour = time[0];
 
     // czy w obiekcie już jest godzina rozpoczęcia
     if(!thisBooking.booked[date][hour]) {
@@ -159,10 +159,12 @@ export class Booking{
   updateDOM(){
     const thisBooking=this;
     thisBooking.date = thisBooking.datePicker.value;
-    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-    console.log('numery stolików', thisBooking.dom.tables);
+    thisBooking.hour = thisBooking.hourPicker.value;
     console.log('stoliki',thisBooking.dom.tables);
-    let nrTable=[];
+    console.log('wrapper',thisBooking.dom.wrapper);
+    nrTable= thisBooking.dom.tables.getAttribute(settings.booking.tableIdAttribute);
+    console.log('nrTable',nrTable);
+     let nrTable=[];
     for (let table of thisBooking.dom.tables){
 
       nrTable= table.getAttribute(settings.booking.tableIdAttribute);
@@ -171,10 +173,10 @@ export class Booking{
     }
 
     if (thisBooking.booked[thisBooking.date]||thisBooking.booked[thisBooking.date][thisBooking.hour]|| (nrTable = thisBooking.booked[thisBooking.date][thisBooking.hour])){
-      thisBooking.nrTable.classList.add.active(classNames.booking.tableBooked);
+      thisBooking.nrTable.classList.add(classNames.booking.tableBooked);
     }
     else{
-      thisBooking.table.classList.remove.active(classNames.booking.tableBooked);
+      nrTable.classList.remove(classNames.booking.tableBooked);
     }
   }
 
