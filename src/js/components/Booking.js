@@ -159,7 +159,9 @@ export class Booking{
   updateDOM(){
     const thisBooking=this;
     thisBooking.date = thisBooking.datePicker.value;
-    thisBooking.hour = thisBooking.hourPicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+    console.log('GGGGGG',thisBooking.booked[thisBooking.date]);
+    console.log('HHHHHHHHH',thisBooking.booked[thisBooking.date][thisBooking.hour]);
 
     let nrTable=[];
     for (let table of thisBooking.dom.tables){
@@ -169,7 +171,7 @@ export class Booking{
       console.log('numer stolika',nrTable);
 
 
-    if (thisBooking.booked[thisBooking.date]||thisBooking.booked[thisBooking.date][thisBooking.hour]|| (nrTable = thisBooking.booked[thisBooking.date][thisBooking.hour])){
+    if (thisBooking.booked[thisBooking.date]||thisBooking.booked[thisBooking.date][thisBooking.hour]|| (thisBooking.booked[thisBooking.date][thisBooking.hour]).includes(nrTable)){
       table.classList.add(classNames.booking.tableBooked);
     }
     else{
