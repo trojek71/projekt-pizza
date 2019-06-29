@@ -4,7 +4,7 @@ export class BaseWidget{
     thisWidget.dom={};
     thisWidget.dom.wrapper = wrapperElement;
     thisWidget.correctValue= initialValue;
-
+    console.log('wrapper BASE',wrapperElement);
   }
   get value(){
     const thisWidget=this;

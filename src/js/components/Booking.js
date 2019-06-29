@@ -9,12 +9,29 @@ import {HourPicker} from './HourPicker.js';
 export class Booking{
   constructor(bookingContainer){
     const thisBooking = this;
+    thisBooking.bookings=[];
 
     thisBooking.bookingContainer= bookingContainer;
     thisBooking.render(bookingContainer);
+    thisBooking.initAction();
     thisBooking.initWidges();
     thisBooking.getData();
 
+
+
+  }
+
+
+
+  initAction(){
+    const thisBooking= this;
+    thisBooking.dom.wrapper.addEventListener('submit', function(event){
+      event.preventDefault();
+
+      thisBooking.sendBooking();
+
+
+    });
   }
   render(){
     const thisBooking = this;
@@ -32,7 +49,9 @@ export class Booking{
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-    console.log('NNNNNNNNNNN,', thisBooking.dom.tables);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.starters= thisBooking.dom.wrapper.querySelectorAll('.checkbox');
+    console.log('STARTERY',thisBooking.dom.starters);
 
 
   }
@@ -50,11 +69,14 @@ export class Booking{
 
       thisBooking.updateDOM();
 
+
     });
 
   }
   getData(){
     const thisBooking = this;
+
+
 
     const startEndDates = {};
     startEndDates[settings.db.dateStartParamKey] = utils.dateToStr(thisBooking.datePicker.minDate);
@@ -69,16 +91,17 @@ export class Booking{
       eventsRepeat: settings.db.repeatParam + '&' + utils.queryParams(endDate),
     };
 
-    console.log('getData params', params);
+
 
 
     const urls = {
-      booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking,
+      booking: settings.db.url  +'/' + settings.db.booking + '?' + params.booking,
       eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent,
       eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat,
+
     };
 
-    console.log('getData urls', urls);
+    console.log('PARAMETRY',params);
 
 
 
@@ -159,8 +182,17 @@ export class Booking{
   updateDOM(){
 
     const thisBooking=this;
+    //console.log('thisBooking.datePicker',thisBooking.datePicker);
+    //console.log('thisBooking.hourPicker',thisBooking.hourPicker);
+
+    thisBooking.starters=[];
+
+
+
+
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+
 
     for (let table of thisBooking.dom.tables){
 
@@ -172,10 +204,71 @@ export class Booking{
       }
       else {
         table.classList.remove(classNames.booking.tableBooked);
-      }
-    }
 
+
+      }
+
+    }
+    for (let table of thisBooking.dom.tables){
+      table.addEventListener('click',function(){
+
+        table.classList.toggle(classNames.booking.tableBooked);
+
+        thisBooking.nrTable = table.getAttribute(settings.booking.tableIdAttribute);
+
+
+      });
+    }
+    thisBooking.phone =  document.querySelectorAll('[name="phone"]')[1];
+    thisBooking.address =  document.querySelectorAll('[name="address"]')[1];
+
+    for(let starter of thisBooking.dom.starters){
+      starter.addEventListener('change', function(event){
+        event.preventDefault();
+        //thisProduct.processOrder();
+        console.log('STARTER',starter);
+           thisBooking.starterName= starter.getAttribute('.input.value');
+          console.log('NAZWA STARTERa',thisBooking.starterName);
+      });
+    }
   }
 
+  sendBooking(){
+    const thisBooking= this;
+
+
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const payload = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hour,
+      table: thisBooking.nrTable,
+      repeat: false,
+      duration: thisBooking.hoursAmount.value ,
+      ppl: thisBooking.peopleAmount.value,
+      address: thisBooking.address.value,
+      phone: thisBooking.phone.value,
+
+    };
+
+
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch(url,options)
+      .then(function(response){
+        return response.json();
+      }).then(function(parsedRespnse){
+        console.log('parsedResponse', parsedRespnse);
+      });
+
+
+  }
 
 }
