@@ -69,7 +69,7 @@ const app = {
         return page.id == idFromHash;
       });
     }
-    thisApp.activatePage(pagesMatchingHash.leght ? pagesMatchingHash[0].id : thisApp.pages[1].id);
+    thisApp.activatePage(pagesMatchingHash.leght ? pagesMatchingHash[0].id : thisApp.pages[0].id);
     for(let link of thisApp.navLinks){
 
       link.addEventListener('click', function(event){

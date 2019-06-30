@@ -75,7 +75,31 @@ export class Booking{
   }
   getData(){
     const thisBooking = this;
+    thisBooking.starters=[];
+    for(let starter of thisBooking.dom.starters){
+      starter.addEventListener('change', function(event){
+        event.preventDefault();
 
+        console.log('STARTER',starter);
+        thisBooking.starters.push (starter.outerText);
+      });
+
+    }
+
+
+    thisBooking.phone =  document.querySelectorAll('[name="phone"]')[1];
+    thisBooking.address =  document.querySelectorAll('[name="address"]')[1];
+
+    for (let table of thisBooking.dom.tables){
+      table.addEventListener('click',function(){
+
+        table.classList.toggle(classNames.booking.tableBooked);
+
+        thisBooking.nrTable = table.getAttribute(settings.booking.tableIdAttribute);
+
+
+      });
+    }
 
 
     const startEndDates = {};
@@ -184,8 +208,8 @@ export class Booking{
     const thisBooking=this;
     //console.log('thisBooking.datePicker',thisBooking.datePicker);
     //console.log('thisBooking.hourPicker',thisBooking.hourPicker);
-    thisBooking.starters=[];
-    thisBooking.phone =  document.querySelectorAll('[name="phone"]')[1];
+    //thisBooking.starters=[];
+    /*thisBooking.phone =  document.querySelectorAll('[name="phone"]')[1];
     thisBooking.address =  document.querySelectorAll('[name="address"]')[1];
 
     for (let table of thisBooking.dom.tables){
@@ -197,9 +221,9 @@ export class Booking{
 
 
       });
-    }
+    }*/
 
-    for(let starter of thisBooking.dom.starters){
+    /*for(let starter of thisBooking.dom.starters){
       starter.addEventListener('change', function(event){
         event.preventDefault();
 
@@ -207,7 +231,7 @@ export class Booking{
         thisBooking.starters.push (starter.outerText);
       });
 
-    }
+    }*/
 
 
     thisBooking.date = thisBooking.datePicker.value;
